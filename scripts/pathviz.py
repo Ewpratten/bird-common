@@ -18,13 +18,15 @@ def dump_all_aspaths(bird_socket_path: Path) -> List[List[int]]:
         data = bird_socket.recv(4096)
         if not data:
             break
-        line = data.decode("utf-8")
         
-        # Skip lines without aspath info
-        if "BGP.as_path" not in line:
-            continue
+        # Process each line
+        for line in data.decode("utf-8").splitlines():
         
-        print(line)
+            # Skip lines without aspath info
+            if "BGP.as_path" not in line:
+                continue
+            
+            print(line)
 
 def main() -> int:
     # Handle program arguments
