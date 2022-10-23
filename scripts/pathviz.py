@@ -11,7 +11,7 @@ def dump_all_aspaths(bird_socket_path: Path) -> List[List[int]]:
     bird_socket.connect(bird_socket_path.as_posix())
 
     # Send the command to dump all paths
-    bird_socket.sendall(b"show route all")
+    bird_socket.sendall(b"show route all\r\n")
     
     # Read the response until there is no more data
     while True:
