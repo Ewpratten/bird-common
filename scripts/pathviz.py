@@ -1,15 +1,17 @@
 import argparse
 from pathlib import Path
+import socket
 import sys
+from typing import List
 
 def dump_all_aspaths(bird_socket_path: Path) -> List[List[int]]:
     
     # Open the unix socket
     bird_socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
-    bird_socket.connect(bird_socket_path)
+    bird_socket.connect(bird_socket_path.as_posix())
 
     # Send the command to dump all paths
-    bird_socket.sendall(b"show route all".encode("utf-8"))
+    bird_socket.sendall(b"show route all")
     
     # Read the response until there is no more data
     while True:
